@@ -1,0 +1,45 @@
+"""
+Очередь на массиве
+"""
+class Quene:
+    def __init__(self):
+        self.items = []
+    def push(self, item):
+        self.items.append(item)
+    def pop(self):
+        if not self.is_empty():
+            return self.items.pop(0)
+        raise IndexError("Quene is empty")
+    def QueneSize(self):
+        return len(self.items)
+    def print_quene(self):
+        print(self.items)
+
+    def is_empty(self):
+        return len(self.items) == 0
+
+    def peek(self):
+        if not self.is_empty():
+            return self.items[0]
+        raise IndexError('Quene is empty')
+
+
+
+"""
+Алгоритм
+"""
+def isSubsequence(a, b):
+    q = Quene()
+    for el in a:
+        q.push(el)
+    for el in b:
+        if q.peek() == el:
+
+            q.pop()
+
+    return q.is_empty()
+
+
+a = [1, 2, 3]
+b = [1, 2442, 2, 45345, 5656, 3]
+print(isSubsequence(a, b))
