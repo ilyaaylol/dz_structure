@@ -1,0 +1,71 @@
+"""
+Связанный список, методы(добавление в начало/конец, принт, проверка на цикличность)
+
+"""
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+class linkedList:
+    def __init__(self):
+        self.head = None
+    def append(self, data):
+        new_node = Node(data)
+        if not self.head:
+            self.head = new_node
+            return
+        current = self.head
+        while current.next:
+            current = current.next
+        current.next = new_node
+    def appenf_new_head(self, data):
+        new_node = Node(data)
+        if not self.head:
+            self.head = new_node
+            return
+
+        new_node.next = self.head
+        self.head = new_node
+    def print_list(self):
+        current = self.head
+        while current:
+            print(current.data, end=" -> ")
+            current = current.next
+        print('None')
+
+    # Алгоритм
+    """
+    Проверяем цикличность
+
+    """
+
+    def hasCycle(self):
+        if self.head is None or self.head.next is None:
+            return False
+        slow = self.head
+        fast = self.head.next
+        while slow != fast:
+            if slow is None or fast is None:
+                return False
+            slow = slow.next
+            fast = fast.next.next
+        return True
+
+"""
+Создание циклического списка
+"""
+lst = linkedList()
+for value in [11, 3, 8, 9, 6, 11, 16, 17]:
+    lst.append(value)
+
+current = lst.head
+target_node = None
+while current.next:
+    if current.data == 8:
+        target_node = current
+    current = current.next
+if target_node:
+    current.next = target_node
+
+
+print(lst.hasCycle())
