@@ -1,0 +1,30 @@
+"""
+Стэк на массиве
+"""
+class Stack:
+    def __init__(self):
+        self.items = []
+    def push(self, item):
+        self.items.append(item)
+    def print_stack(self):
+        print(self.items)
+
+    def pop(self):
+        if not self.is_empty():
+            return self.items.pop()
+        raise IndexError("Stack is empty")
+    def is_empty(self):
+        return len(self.items) == 0
+"""
+Алгоритм палиндром
+"""
+def isPalindrome(s):
+    stack = Stack()
+    for el in s:
+        stack.push(el)
+    for el in s:
+        if el != stack.pop():
+            return False
+    return True
+s = '12321'
+print(isPalindrome(s))
