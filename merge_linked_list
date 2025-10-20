@@ -1,0 +1,77 @@
+"""
+связанный список
+"""
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+class LinkedList:
+    def __init__(self):
+        self.head = None
+    def append(self, val):
+        new_node = Node(val)
+        if not self.head:
+            self.head = new_node
+            return
+        current = self.head
+        while current.next:
+            current = current.next
+        current.next = new_node
+    def append_new_head(self, val):
+        new_node = Node(val)
+        if not self.head:
+            self.head = new_node
+            return
+        new_node.next = self.head
+        self.head = new_node
+    def print_link_list(self):
+        current = self.head
+        while current:
+            print(current.data, end=" -> ")
+            current = current.next
+        print("None")
+    def reverse_limk(self):
+        prev = None
+        current = self.head
+        while current:
+            new_node = current.next
+            current.next = prev
+            prev = current
+            current = new_node
+        self.head = prev
+def merge_linked_list(head1, head2):
+    if head1 is None:
+        return head2
+    if head2 is None:
+        return head1
+
+    if head1.data < head2.data:
+        merge_head = head1
+        head1 = head1.next
+    else:
+        merge_head = head2
+        head2 = head2.next
+    current = merge_head
+    while head1 and head2:
+        if head1.data < head2.data:
+            current.next = head1
+            head1 = head1.next
+        else:
+            current.next = head2
+            head2 = head2.next
+        current = current.next
+    current.next = head1 if head1 else head2
+    merge_list = LinkedList()
+    merge_list.head = merge_head
+    return merge_list
+a = [1, 5, 12, 18]
+b = [3, 4, 6, 13]
+q1 = LinkedList()
+q2 = LinkedList()
+for el in a:
+    q1.append(el)
+
+for el in b:
+    q2.append(el)
+
+merge_linked_list(q1.head, q2.head).print_link_list()
